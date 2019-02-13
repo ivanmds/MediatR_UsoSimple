@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PedidoCompra.AggregatesModel.PedidoAggregate
+namespace PedidoCompra.Domain.PedidoAggregate
 {
     public class Pedido
     {
@@ -13,13 +13,13 @@ namespace PedidoCompra.AggregatesModel.PedidoAggregate
         private List<PedidoItem> _itens;
         public IReadOnlyCollection<PedidoItem> Itens => _itens;
 
-        public Pedido(Guid id, DateTime criado, string descricao, PedidoStatus status, List<PedidoItem> itens)
+        public Pedido(Guid id, DateTime criado, string descricao, PedidoStatus status, List<PedidoItem> itens = null)
         {
             Id = id;
             Criado = criado;
             Descricao = descricao;
             Status = status;
-            _itens = itens;
+            _itens = itens ?? new List<PedidoItem>();
         }
         protected Pedido() { }
 

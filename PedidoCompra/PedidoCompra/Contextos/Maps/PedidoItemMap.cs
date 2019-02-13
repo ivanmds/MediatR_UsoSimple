@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using PedidoCompra.AggregatesModel.PedidoAggregate;
+using PedidoCompra.Domain.PedidoAggregate;
 
 namespace PedidoCompra.Contextos.Maps
 {

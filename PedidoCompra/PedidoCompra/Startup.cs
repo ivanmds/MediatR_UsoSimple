@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PedidoCompra.Contextos;
+using PedidoCompra.Domain;
+using PedidoCompra.Domain.PedidoAggregate.Commands;
+using PedidoCompra.Domain.PedidoAggregate.Handlers;
+using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using PedidoCompra.Repositorios;
+using System.Reflection;
 
 namespace PedidoCompra
 {
@@ -27,6 +35,12 @@ namespace PedidoCompra
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddMediatR(typeof(IMediator).GetTypeInfo().Assembly);
+            
+            services.AddScoped(typeof(Contexto));
+            services.AddScoped<IRequestHandler<PedidoAddCommand, Resultado>, PedidoHandler>();
+            services.AddTransient<IPedidoRepository, PedidoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

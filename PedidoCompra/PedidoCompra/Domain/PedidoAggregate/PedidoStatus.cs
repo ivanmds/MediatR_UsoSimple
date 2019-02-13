@@ -1,4 +1,4 @@
-﻿namespace PedidoCompra.AggregatesModel.PedidoAggregate
+﻿namespace PedidoCompra.Domain.PedidoAggregate
 {
     public enum PedidoStatus: byte
     {

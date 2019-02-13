@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PedidoCompra.AggregatesModel.PedidoAggregate
+namespace PedidoCompra.Domain.PedidoAggregate
 {
     public class PedidoItem
     {
