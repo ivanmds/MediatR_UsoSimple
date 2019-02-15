@@ -1,7 +1,10 @@
 ﻿using MediatR;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using PedidoCompra.Domain;
+using PedidoCompra.Domain.PedidoAggregate;
 using PedidoCompra.Domain.PedidoAggregate.Commands;
+using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PedidoCompra.Controllers
@@ -10,22 +13,24 @@ namespace PedidoCompra.Controllers
     public class PedidosController : Controller
     {
         private readonly IMediator _mediator;
+        private readonly IPedidoQueryRepository _pedidoRepository;
 
-        public PedidosController(IMediator mediator)
+        public PedidosController(IMediator mediator, IPedidoQueryRepository pedidoRepository)
         {
             _mediator = mediator;
+            _pedidoRepository = pedidoRepository;
         }
 
-        [HttpGet]
-        public string Get()
+        [HttpGet("")]
+        public async Task<IEnumerable<Pedido>> Get()
         {
-            return "";
+            return await _pedidoRepository.ListarAsync();
         }
 
         [HttpPost("")]
-        public async Task Post([FromBody]PedidoAddCommand pedidoAddCommand)
+        public async Task<ValidationResult> Post([FromBody]PedidoAddCommand pedidoAddCommand)
         {
-            Resultado resultado = await _mediator.Send<Resultado>(pedidoAddCommand);
+            return await _mediator.Send(pedidoAddCommand);
         }
     }
 }
