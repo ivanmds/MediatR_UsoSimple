@@ -1,11 +1,24 @@
 <div class="container">
   <h1>Cadatro do pedido</h1>
+  <div class="container red" *ngIf="!resultado.isValid">
+    <ul *ngFor="let error of resultado.errors">
+      <li style="color:red; font-weight: bold;">{{error}}</li>
+    </ul>
+    <br />
+  </div>
   <form class="form-horizontal" [formGroup]="form" novalidate>
     <div class="form-group">
-      <label>Descrição</label>
-      <input type="text" class="form-control" formControlName="descricao" />
+      <label>Data da criação</label>
+      <input type="date" class="form-control" formControlName="criado" />
     </div>
-
+    <div class="form-group">
+      <label>Descrição</label>
+      <textarea  class="form-control" formControlName="descricao" rows="3" ></textarea>
+    </div>
+    <div class="form-group">
+      <label>Status</label>
+      <input type="number" class="form-control" formControlName="status" />
+    </div>
     <button type="submit" class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Salvar</button>
   </form>
 </div>
