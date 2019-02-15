@@ -18,7 +18,7 @@ namespace PedidoCompra.Contextos
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Teste;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseSqlServer(@"Data Source=localhost\SQLServer;Initial Catalog=PedidoCompra;Persist Security Info=True;User ID=sa;Password=123456");
         }
     }
 }
