@@ -11,9 +11,9 @@ namespace PedidoCompra.Contextos
             _contexto = contexto;
         }
 
-        public async Task<int> SalvarAsync()
+        public async Task<bool> SalvarAsync()
         {
-            return await _contexto.SaveChangesAsync();
+            return await _contexto.SaveChangesAsync() > 0;
         }
 
         public void Dispose()

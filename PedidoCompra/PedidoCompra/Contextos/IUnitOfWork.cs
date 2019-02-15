@@ -4,6 +4,6 @@ namespace PedidoCompra.Contextos
 {
     public interface IUnitOfWork
     {
-        Task<int> SalvarAsync();
+        Task<bool> SalvarAsync();
     }
 }
