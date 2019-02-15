@@ -1,13 +1,22 @@
-﻿using MediatR;
+﻿using PedidoCompra.Domain.PedidoAggregate.Validations;
 using System;
 
 namespace PedidoCompra.Domain.PedidoAggregate.Commands
 {
-    public class PedidoAddCommand : IRequest<Resultado>
+    public class PedidoAddCommand : PedidoCommand
     {
-        public Guid Id { get; set; }
-        public DateTime Criado { get; set; }
-        public string Descricao { get; set; }
-        public PedidoStatus Status { get; set; }
+        public PedidoAddCommand(DateTime criado, string descricao, PedidoStatus status)
+        {
+            Criado = criado;
+            Id = Guid.NewGuid();
+            Descricao = descricao;
+            Status = status;
+        }
+
+        public override bool EhValido()
+        {
+            Validacao = new PedidoAddValidation().Validate(this);
+            return Validacao.IsValid;
+        }
     }
 }
