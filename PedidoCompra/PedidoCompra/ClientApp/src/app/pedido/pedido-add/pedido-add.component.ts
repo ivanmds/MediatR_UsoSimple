@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Pedido } from '../pedido.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Resultado } from '../../shared/resultado.model';
+import { ResultadoCommand } from '../../shared/resultado.model';
 import { strictEqual } from 'assert';
 
 @Component({
@@ -11,7 +11,8 @@ import { strictEqual } from 'assert';
 })
 export class PedidoAddComponent implements OnInit {
 
-  public resultado: Resultado = new Resultado();
+  public pedidos: Pedido[];
+  public resultado: ResultadoCommand = new ResultadoCommand();
   public form: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -24,6 +25,7 @@ export class PedidoAddComponent implements OnInit {
       descricao: [null, [Validators.required]],
       status: [null, [Validators.required]]
     });
+    this.listarPedidos();
   }
 
   onSubmit(): void {
@@ -46,9 +48,20 @@ export class PedidoAddComponent implements OnInit {
         this.resultado.isValid = result.isValid;
         this.resultado.errors = errors;
 
-        console.log(result);
-      }, error => console.error(error));
+        if(this.resultado.isValid === true)
+        {
+          this.form.reset();
+          this.listarPedidos();
+        }
 
+      }, error => console.error(error));
     }
+  }
+
+  listarPedidos(): void {
+    let uri = this.baseUrl + 'api/pedidos';
+    this.http.get<Pedido[]>(uri).subscribe(retorno => {
+      this.pedidos = retorno;
+    });
   }
 }

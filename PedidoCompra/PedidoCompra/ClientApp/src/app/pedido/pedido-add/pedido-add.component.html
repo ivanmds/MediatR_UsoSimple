@@ -1,9 +1,15 @@
 <div class="container">
   <h1>Cadatro do pedido</h1>
-  <div class="container red" *ngIf="!resultado.isValid">
+  <div class="alert alert-danger" *ngIf="resultado.isValid == false">
     <ul *ngFor="let error of resultado.errors">
-      <li style="color:red; font-weight: bold;">{{error}}</li>
+      <li style="font-weight: bold;">{{error}}</li>
     </ul>
+    <br />
+  </div>
+  <div class="alert alert-success" *ngIf="resultado.isValid">
+    <p style="font-weight: bold;">
+      Gravado com sucesso.
+    </p>
     <br />
   </div>
   <form class="form-horizontal" [formGroup]="form" novalidate>
@@ -13,7 +19,7 @@
     </div>
     <div class="form-group">
       <label>Descrição</label>
-      <textarea  class="form-control" formControlName="descricao" rows="3" ></textarea>
+      <textarea class="form-control" formControlName="descricao" rows="3"></textarea>
     </div>
     <div class="form-group">
       <label>Status</label>
@@ -21,4 +27,11 @@
     </div>
     <button type="submit" class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Salvar</button>
   </form>
+</div>
+
+<br />
+<div class="container">
+  <hr />
+  <h3>Lista dos pedidos</h3>
+  <app-pedido-listar [pedidos]="pedidos"></app-pedido-listar>
 </div>
