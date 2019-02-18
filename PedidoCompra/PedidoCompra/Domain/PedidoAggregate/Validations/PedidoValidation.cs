@@ -18,6 +18,10 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
             RuleFor(p => p.Status)
                 .NotEqual(PedidoStatus.Definir)
                 .WithMessage("Status deve ser definido");
+
+            RuleFor(p => p.Status)
+                .Must(p => p >= PedidoStatus.Aprovado && p <= PedidoStatus.Reprovado)
+                .WithMessage("Defina um status válido.");
         }
 
         protected void ValidarDescricao()
