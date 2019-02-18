@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PedidoAddComponent } from './pedido/pedido-add/pedido-add.component';
+import { PedidoListarComponent } from './pedido/pedido-listar/pedido-listar.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { PedidoAddComponent } from './pedido/pedido-add/pedido-add.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    PedidoAddComponent
+    PedidoAddComponent,
+    PedidoListarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
