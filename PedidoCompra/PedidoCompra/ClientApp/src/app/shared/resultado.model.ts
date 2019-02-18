@@ -1,8 +1,5 @@
-export class Resultado {
+export class ResultadoCommand {
 
-    constructor() {
-        this.isValid = true;
-    }
-    public isValid: boolean;
+    public isValid?: boolean;
     public errors: string[];
 }
