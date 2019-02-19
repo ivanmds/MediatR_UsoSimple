@@ -1,0 +1,30 @@
+<button type="button" class="btn btn-primary" (click)="openModal(template)">Adicionar Item</button>
+<ng-template #template>
+  <form class="form-horizontal" novalidate [formGroup]="formItem">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Novo item do pedido</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body" style="margin: 0px 10px 0px 10px">
+
+      <div class="form-group">
+        <label>Descrição</label>
+        <input type="text" class="form-control" formControlName="descricao" />
+      </div>
+      <div class="form-group">
+        <label>Quantidade</label>
+        <input type="number" class="form-control" formControlName="quantidade" />
+      </div>
+      <div class="form-group">
+        <label>Valor unitário</label>
+        <input type="number" class="form-control" formControlName="valorUnitario" />
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="adicionar()">Adicionar</button>
+    </div>
+  </form>
+</ng-template>

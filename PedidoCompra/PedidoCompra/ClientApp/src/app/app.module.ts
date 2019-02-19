@@ -11,6 +11,9 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { PedidoAddComponent } from './pedido/pedido-add/pedido-add.component';
 import { PedidoListarComponent } from './pedido/pedido-listar/pedido-listar.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PedidoItemAddModalComponent } from './pedido/pedido-item/pedido-item-add-modal.component';
+import { PedidoItemListarComponent } from './pedido/pedido-item/pedido-item-listar/pedido-item-listar.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,16 @@ import { PedidoListarComponent } from './pedido/pedido-listar/pedido-listar.comp
     CounterComponent,
     FetchDataComponent,
     PedidoAddComponent,
-    PedidoListarComponent
+    PedidoListarComponent,
+    PedidoItemAddModalComponent,
+    PedidoItemListarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },

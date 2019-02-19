@@ -25,6 +25,13 @@
       <label>Status</label>
       <input type="number" class="form-control" formControlName="status" />
     </div>
+
+    <app-pedido-item-listar [itens]="itensNovos" ></app-pedido-item-listar>
+
+    <div class="container" style="text-align: right;">
+      <app-pedido-item-add-modal (novoItem)="novoItemDoPedido($event)"></app-pedido-item-add-modal>
+    </div>
+    <br />
     <button type="submit" class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Salvar</button>
   </form>
 </div>
