@@ -2,8 +2,7 @@
 using PedidoCompra.Contextos;
 using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace PedidoCompra.Repositorios
 {
@@ -17,12 +16,14 @@ namespace PedidoCompra.Repositorios
 
         public async Task<Pedido> AdicionarAsync(Pedido pedido)
         {
-            return (await _contexto.AddAsync(pedido)).Entity;
+            return (await _contexto.AddAsync(pedido))?.Entity;
         }
 
-        public async Task<IEnumerable<Pedido>> ListarAsync()
+        public async Task<Pedido> RemoverAsync(Guid id)
         {
-            return await _contexto.Pedidos.ToArrayAsync();
+            Pedido pedido = await _contexto.FindAsync<Pedido>(id);
+            if (pedido == null) return null;
+            return _contexto.Remove(pedido)?.Entity;
         }
     }
 }
