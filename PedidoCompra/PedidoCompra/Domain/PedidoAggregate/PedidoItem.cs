@@ -7,14 +7,18 @@ namespace PedidoCompra.Domain.PedidoAggregate
         public Guid Id { get; private set; }
         public string Descricao { get; private set; }
         public float Quantidade { get; private set; }
-        public decimal ValorUnitario { get; private set; } 
+        public decimal ValorUnitario { get; private set; }
 
-        public PedidoItem(Guid id, string descricao, float quantidade, decimal valorUnitario)
+        public Guid PedidoId { get; private set; }
+        public virtual Pedido Pedido { get; private set; }
+
+        public PedidoItem(Guid id, string descricao, float quantidade, decimal valorUnitario, Guid pedidoId)
         {
             Id = id;
             Descricao = descricao;
             Quantidade = quantidade;
             ValorUnitario = valorUnitario;
+            PedidoId = pedidoId;
         }
 
         protected PedidoItem() { }

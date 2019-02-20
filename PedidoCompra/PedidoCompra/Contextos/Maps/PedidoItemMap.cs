@@ -10,6 +10,8 @@ namespace PedidoCompra.Contextos.Maps
         {
             builder.ToTable("PedidoItem");
             builder.HasKey(p => p.Id);
+
+            builder.HasOne(p => p.Pedido);
         }
     }
 }

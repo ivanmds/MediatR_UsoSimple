@@ -10,9 +10,7 @@ namespace PedidoCompra.Contextos.Maps
         {
             builder.ToTable("Pedido");
             builder.HasKey(p => p.Id);
-            builder.HasMany(p => p.Itens)
-                .WithOne()
-                .HasForeignKey(p => p.Id);
+            builder.HasMany(p => p.Itens);
         }
     }
 }
