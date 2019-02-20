@@ -28,18 +28,24 @@ namespace PedidoCompra.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Descricao = table.Column<string>(nullable: true),
                     Quantidade = table.Column<float>(nullable: false),
-                    ValorUnitario = table.Column<decimal>(nullable: false)
+                    ValorUnitario = table.Column<decimal>(nullable: false),
+                    PedidoId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PedidoItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PedidoItem_Pedido_Id",
-                        column: x => x.Id,
+                        name: "FK_PedidoItem_Pedido_PedidoId",
+                        column: x => x.PedidoId,
                         principalTable: "Pedido",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PedidoItem_PedidoId",
+                table: "PedidoItem",
+                column: "PedidoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
