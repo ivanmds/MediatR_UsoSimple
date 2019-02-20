@@ -6,6 +6,7 @@ using PedidoCompra.Domain.PedidoAggregate.Commands;
 using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace PedidoCompra.Controllers
 {
@@ -31,6 +32,13 @@ namespace PedidoCompra.Controllers
         public async Task<ValidationResult> Post([FromBody]PedidoAddCommand pedidoAddCommand)
         {
             return await _mediator.Send(pedidoAddCommand);
+        }
+
+        [HttpDelete("{id:guid}")]
+        public async Task<ValidationResult> Deletar(Guid id)
+        {
+            PedidoDeletarCommand pedidoDeletarCommand = new PedidoDeletarCommand(id);
+            return await _mediator.Send(pedidoDeletarCommand);
         }
     }
 }
