@@ -5,14 +5,16 @@
       <th>Quantidade</th>
       <th>Valor unitário</th>
       <th>Valor total</th>
+      <th>Funções</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of itens">
+    <tr *ngFor="let item of itens; let i = index">
       <td>{{item.descricao}}</td>
       <td>{{item.quantidade}}</td>
       <td>{{item.valorUnitario}}</td>
       <td>{{ item.quantidade * item.valorUnitario }}</td>
+      <td><a href="javascript:void(0)" (click)="deletar(i)"> X </a></td>
     </tr>
   </tbody>
 </table>
