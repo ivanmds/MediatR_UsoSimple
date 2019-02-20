@@ -26,6 +26,12 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
             if (comando.EhValido())
             {
                 Pedido pedido = new Pedido(comando.Id, comando.Criado, comando.Descricao, comando.Status);
+
+                if (comando.Itens?.Count > 0)
+                    foreach (PedidoItemDto item in comando.Itens)
+                        pedido.AdicionarItem(new PedidoItem(item.Id, item.Descricao, item.Quantidade, item.ValorUnitario));
+
+
                 await _pedidoRepository.AdicionarAsync(pedido);
 
                 if (!await _unitOfWork.SalvarAsync())
