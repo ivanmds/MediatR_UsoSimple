@@ -39,6 +39,7 @@ namespace PedidoCompra
             
             services.AddScoped(typeof(Contexto));
             services.AddScoped<IRequestHandler<PedidoAddCommand, ValidationResult>, PedidoHandler>();
+            services.AddScoped<IRequestHandler<PedidoDeletarCommand, ValidationResult>, PedidoHandler>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
 
