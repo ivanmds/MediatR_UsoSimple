@@ -11,6 +11,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
             ValidarCriado();
             ValidarStatus();
             ValidarDescricao();
+            ValidarItens();
         }
     }
 }
