@@ -8,7 +8,7 @@
   </div>
   <div class="alert alert-success" *ngIf="resultado.isValid">
     <p style="font-weight: bold;">
-      Gravado com sucesso.
+      Sucesso.
     </p>
     <br />
   </div>
@@ -40,5 +40,5 @@
 <div class="container">
   <hr />
   <h3>Lista dos pedidos</h3>
-  <app-pedido-listar [pedidos]="pedidos"></app-pedido-listar>
+  <app-pedido-listar [pedidos]="pedidos" (deletarPedido)="deletarPedido($event)"></app-pedido-listar>
 </div>

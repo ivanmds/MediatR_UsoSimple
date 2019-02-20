@@ -4,6 +4,7 @@
       <th>Criado</th>
       <th>Descrição</th>
       <th>Status</th>
+      <th>Funções</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
       <td>{{ item.criado }}</td>
       <td>{{ item.descricao }}</td>
       <td>{{ item.status }}</td>
+      <td><a href="javascript:void(0)" (click)="deletar(item)"> X </a></td>
     </tr>
   </tbody>
 

@@ -15,6 +15,7 @@ export class PedidoAddComponent implements OnInit {
   private resultado: ResultadoCommand = new ResultadoCommand();
   private form: FormGroup;
   private itensNovos: PedidoItem[] = new Array();
+  private uri: string =  this.baseUrl + 'api/pedidos';
 
   constructor(private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -40,21 +41,13 @@ export class PedidoAddComponent implements OnInit {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
-      };     
+      };
 
-      let uri = this.baseUrl + 'api/pedidos';
+      this.http.post<any>(this.uri, body, httpOptions).subscribe(retorno => {
+       
+        this.carregarRetorno(retorno);
 
-      this.http.post<any>(uri, body, httpOptions).subscribe(result => {
-        let errors = [] ;
-        result.errors.forEach(erro => {
-          errors.push(erro.errorMessage);
-        });
-
-        this.resultado.isValid = result.isValid;
-        this.resultado.errors = errors;
-
-        if(this.resultado.isValid === true)
-        {
+        if (this.resultado.isValid === true) {
           this.form.reset();
           this.listarPedidos();
           this.itensNovos = new Array();
@@ -65,13 +58,36 @@ export class PedidoAddComponent implements OnInit {
   }
 
   listarPedidos(): void {
-    let uri = this.baseUrl + 'api/pedidos';
-    this.http.get<Pedido[]>(uri).subscribe(retorno => {
+    this.http.get<Pedido[]>(this.uri).subscribe(retorno => {
       this.pedidos = retorno;
     });
   }
 
-  novoItemDoPedido(item: any): void{
+  novoItemDoPedido(item: any): void {
     this.itensNovos.push(item);
   }
+
+  deletarPedido(pedido: Pedido): void {
+    let uri = `${this.uri}/${pedido.id}`;
+    this.http.delete(uri).subscribe(retorno => { 
+      this.carregarRetorno(retorno);
+      if (this.resultado.isValid === true) {
+        this.listarPedidos();
+      }
+    });
+  }
+
+  private carregarRetorno(result: any) :void{
+    let errors = [];
+    result.errors.forEach(erro => {
+      errors.push(erro.errorMessage);
+    });
+
+    this.resultado.isValid = result.isValid;
+    this.resultado.errors = errors;
+    setTimeout(() => {
+      this.resultado = new ResultadoCommand();
+    }, 5000);
+  }
+
 }
