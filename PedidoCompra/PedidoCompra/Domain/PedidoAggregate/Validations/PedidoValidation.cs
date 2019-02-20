@@ -71,7 +71,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
             RuleForEach(p => p.Itens)
                 .Custom((item, contexto) =>
                 {
-                    if (item.Descricao?.Count() < 5 || item.Descricao?.Count() > 1000)
+                    if (item.Descricao?.Count() <= 5 || item.Descricao?.Count() >= 1000)
                     {
                         contexto.AddFailure("Descrição do item deve conter de 5 a 1000 caracteres.");
                     }
@@ -95,7 +95,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
             RuleForEach(p => p.Itens)
                 .Custom((item, contexto) =>
                 {
-                    if(item.Quantidade <= 0)
+                    if (item.Quantidade <= 0)
                     {
                         contexto.AddFailure("Quantidade do item deve ser maior que 0.");
                     }
