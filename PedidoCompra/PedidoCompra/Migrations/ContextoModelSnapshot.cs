@@ -19,7 +19,7 @@ namespace PedidoCompra.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("PedidoCompra.AggregatesModel.PedidoAggregate.Pedido", b =>
+            modelBuilder.Entity("PedidoCompra.Domain.PedidoAggregate.Pedido", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
@@ -35,11 +35,14 @@ namespace PedidoCompra.Migrations
                     b.ToTable("Pedido");
                 });
 
-            modelBuilder.Entity("PedidoCompra.AggregatesModel.PedidoAggregate.PedidoItem", b =>
+            modelBuilder.Entity("PedidoCompra.Domain.PedidoAggregate.PedidoItem", b =>
                 {
-                    b.Property<Guid>("Id");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Descricao");
+
+                    b.Property<Guid>("PedidoId");
 
                     b.Property<float>("Quantidade");
 
@@ -47,14 +50,16 @@ namespace PedidoCompra.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PedidoId");
+
                     b.ToTable("PedidoItem");
                 });
 
-            modelBuilder.Entity("PedidoCompra.AggregatesModel.PedidoAggregate.PedidoItem", b =>
+            modelBuilder.Entity("PedidoCompra.Domain.PedidoAggregate.PedidoItem", b =>
                 {
-                    b.HasOne("PedidoCompra.AggregatesModel.PedidoAggregate.Pedido")
+                    b.HasOne("PedidoCompra.Domain.PedidoAggregate.Pedido", "Pedido")
                         .WithMany("Itens")
-                        .HasForeignKey("Id")
+                        .HasForeignKey("PedidoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
