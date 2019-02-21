@@ -24,7 +24,6 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
 
         public async Task<ValidationResult> Handle(PedidoAddCommand comando, CancellationToken cancelar)
         {
-
             if (comando.EhValido())
             {
                 Pedido pedido = new Pedido(comando.Id, comando.Criado, comando.Descricao, comando.Status);
@@ -34,12 +33,12 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
                         pedido.AdicionarItem(new PedidoItem(item.Id, item.Descricao, item.Quantidade, item.ValorUnitario, pedido.Id));
 
 
-
                 await _pedidoRepository.AdicionarAsync(pedido);
 
                 if (!await _unitOfWork.SalvarAsync())
                     comando.Validacao.Errors.Add(new ValidationFailure("Salvar", "Erro ao tentar salvar operação"));
 
+                await _mediator.Publish(new PedidoAddNotification() { Id = pedido.Id, Criado = pedido.Criado, Descricao = pedido.Descricao });
             }
 
             return comando.Validacao;
@@ -55,6 +54,11 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
                 {
                     comando.Validacao.Errors.Add(new ValidationFailure("Deletar", "Não foi encontrado pedido para ser deletado"));
                     return comando.Validacao;
+                }
+                else
+                {
+                    if (pedido.Status == PedidoStatus.Aprovado)
+                        comando.Validacao.Errors.Add(new ValidationFailure("Status", "Pedido já está aprovado."));
                 }
 
                 if (!await _unitOfWork.SalvarAsync())
