@@ -21,7 +21,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
                 .WithMessage("Status deve ser definido");
 
             RuleFor(p => p.Status)
-                .Must(p => p >= PedidoStatus.Aprovado && p <= PedidoStatus.Reprovado)
+                .Must(p => p >= PedidoStatus.Analisando && p <= PedidoStatus.Aprovado)
                 .WithMessage("Defina um status válido.");
         }
 
@@ -71,7 +71,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations
             RuleForEach(p => p.Itens)
                 .Custom((item, contexto) =>
                 {
-                    if (item.Descricao?.Count() <= 5 || item.Descricao?.Count() >= 1000)
+                    if (item.Descricao?.Count() < 5 || item.Descricao?.Count() > 1000)
                     {
                         contexto.AddFailure("Descrição do item deve conter de 5 a 1000 caracteres.");
                     }
