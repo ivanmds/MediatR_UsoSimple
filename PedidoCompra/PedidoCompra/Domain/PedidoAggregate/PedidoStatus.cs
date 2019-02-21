@@ -3,8 +3,8 @@
     public enum PedidoStatus: byte
     {
         Definir = 0,
-        Aprovado = 1,
-        Analisando = 2,
-        Reprovado = 3
+        Analisando = 1,
+        Reprovado = 2,
+        Aprovado = 3,
     }
 }
