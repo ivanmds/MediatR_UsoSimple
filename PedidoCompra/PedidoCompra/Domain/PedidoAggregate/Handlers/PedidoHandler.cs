@@ -58,7 +58,10 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
                 else
                 {
                     if (pedido.Status == PedidoStatus.Aprovado)
+                    {
                         comando.Validacao.Errors.Add(new ValidationFailure("Status", "Pedido já está aprovado."));
+                        return comando.Validacao;
+                    }
                 }
 
                 if (!await _unitOfWork.SalvarAsync())
