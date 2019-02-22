@@ -17,7 +17,8 @@ export class PedidoAddComponent implements OnInit {
   private itensNovos: PedidoItem[] = new Array();
   private uri: string =  this.baseUrl + 'api/pedidos';
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
+    private formBuilder: FormBuilder,
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) { }
 
@@ -31,12 +32,12 @@ export class PedidoAddComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
     if (this.form.valid) {
       let pedido = this.form.value;
       pedido.itens = this.itensNovos;
 
       let body = JSON.stringify(pedido);
-      console.log(body);
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -54,6 +55,7 @@ export class PedidoAddComponent implements OnInit {
         }
 
       }, error => console.error(error));
+      
     }
   }
 
@@ -87,7 +89,7 @@ export class PedidoAddComponent implements OnInit {
     this.resultado.errors = errors;
     setTimeout(() => {
       this.resultado = new ResultadoCommand();
-    }, 5000);
+    }, 10000);
   }
 
 }
