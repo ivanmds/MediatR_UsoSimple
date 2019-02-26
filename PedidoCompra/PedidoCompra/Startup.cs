@@ -13,6 +13,10 @@ using PedidoCompra.Repositorios;
 using System.Reflection;
 using FluentValidation.Results;
 using PedidoCompra.Domain.PedidoAggregate.Notifications;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
+using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
 
 namespace PedidoCompra
 {
@@ -41,6 +45,8 @@ namespace PedidoCompra
             services.AddScoped(typeof(Contexto));
             services.AddScoped<IRequestHandler<PedidoAddCommand, ValidationResult>, PedidoHandler>();
             services.AddScoped<IRequestHandler<PedidoDeletarCommand, ValidationResult>, PedidoHandler>();
+            services.AddScoped<IRequestHandler<PedidoAtualizarCommand, ValidationResult>, PedidoHandler>();
+            services.AddScoped<IRequestHandler<PedidoItemAddCommand, ValidationResult>, PedidoItemHandler>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, AvisarFinanceiroNotificarion>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, EnviarEmailNotificarion>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

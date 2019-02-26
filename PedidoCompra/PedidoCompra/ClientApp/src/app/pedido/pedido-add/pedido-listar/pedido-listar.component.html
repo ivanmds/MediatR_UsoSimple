@@ -12,7 +12,10 @@
       <td>{{ item.criado }}</td>
       <td>{{ item.descricao }}</td>
       <td>{{ item.status }}</td>
-      <td><a href="javascript:void(0)" (click)="deletar(item)"><i class="fa fa-close" style="font-size:18px;"></i></a></td>
+      <td>
+        <a href="javascript:void(0)" (click)="deletar(item)"><i class="fa fa-close" style="font-size:18px;"></i></a>
+        <a href="javascript:void(0)" (click)="editar(item.id)">editar</a>
+      </td>
     </tr>
   </tbody>
 

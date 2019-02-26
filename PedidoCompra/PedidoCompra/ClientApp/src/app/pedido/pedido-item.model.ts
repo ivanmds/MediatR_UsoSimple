@@ -1,6 +1,6 @@
 export class PedidoItem {
-    constructor(
-        public descricao: string,
-        public quantidade: number,
-        public valorUnitario: number) { }
+    public id: string;
+    public descricao: string;
+    public quantidade: number;
+    public valorUnitario: number;
 }

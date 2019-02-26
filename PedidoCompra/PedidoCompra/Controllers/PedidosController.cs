@@ -7,6 +7,10 @@ using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
+using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
 
 namespace PedidoCompra.Controllers
 {
@@ -23,15 +27,28 @@ namespace PedidoCompra.Controllers
         }
 
         [HttpGet("")]
-        public async Task<IEnumerable<Pedido>> Get()
+        public async Task<IEnumerable<Pedido>> Obter()
         {
             return await _pedidoRepository.ListarAsync();
         }
 
+        [HttpGet("{id:guid}")]
+        public async Task<Pedido> ObterPorId(Guid id)
+        {
+            return await _pedidoRepository.ObterAsync(id);
+        }
+
         [HttpPost("")]
-        public async Task<ValidationResult> Post([FromBody]PedidoAddCommand pedidoAddCommand)
+        public async Task<ValidationResult> Novo([FromBody]PedidoAddCommand pedidoAddCommand)
         {
             return await _mediator.Send(pedidoAddCommand);
+        }
+
+        [HttpPut("{id:guid}")]
+        public async Task<ValidationResult> Atualizar(Guid id, [FromBody] PedidoAtualizarCommand pedidoAtualizarCommand)
+        {
+            pedidoAtualizarCommand.SetId(id);
+            return await _mediator.Send(pedidoAtualizarCommand);
         }
 
         [HttpDelete("{id:guid}")]
@@ -39,6 +56,13 @@ namespace PedidoCompra.Controllers
         {
             PedidoDeletarCommand pedidoDeletarCommand = new PedidoDeletarCommand(id);
             return await _mediator.Send(pedidoDeletarCommand);
+        }
+
+        [HttpPost("{id:guid}/itens")]
+        public async Task<ValidationResult> AtualizarItem(Guid id, [FromBody] PedidoItemAddCommand pedidoItemAddCommand)
+        {
+            pedidoItemAddCommand.SetPedidoId(id);
+            return await _mediator.Send(pedidoItemAddCommand);
         }
     }
 }

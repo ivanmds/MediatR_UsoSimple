@@ -1,8 +1,8 @@
-﻿using PedidoCompra.Domain.PedidoAggregate.Validations;
-using System;
+﻿using System;
+using PedidoCompra.Domain.PedidoAggregate.Validations.Pedido;
 using System.Collections.Generic;
 
-namespace PedidoCompra.Domain.PedidoAggregate.Commands
+namespace PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add
 {
     public class PedidoAddCommand : PedidoCommand
     {

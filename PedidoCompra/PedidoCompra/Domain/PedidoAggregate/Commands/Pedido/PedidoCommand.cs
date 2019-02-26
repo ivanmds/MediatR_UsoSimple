@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PedidoCompra.Domain.PedidoAggregate.Commands
+namespace PedidoCompra.Domain.PedidoAggregate.Commands.Pedido
 {
     public abstract class PedidoCommand : Command
     {

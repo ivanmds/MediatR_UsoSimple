@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using PedidoCompra.Domain.PedidoAggregate.Commands;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
 
 namespace PedidoCompra.Domain.PedidoAggregate.Notifications
 {

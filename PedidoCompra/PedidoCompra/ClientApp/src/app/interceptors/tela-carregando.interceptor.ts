@@ -1,7 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpEvent, HttpHandler } from "@angular/common/http";
 import { TelaCarregandoService } from "../services/tela-carregando.service";
 import { Observable } from "rxjs/Observable";
-import { request } from "https";
 import { finalize } from 'rxjs/operators';
 import { Injectable } from "@angular/core";
 

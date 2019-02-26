@@ -1,7 +1,6 @@
-﻿using FluentValidation;
-using PedidoCompra.Domain.PedidoAggregate.Commands;
+﻿using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
 
-namespace PedidoCompra.Domain.PedidoAggregate.Validations
+namespace PedidoCompra.Domain.PedidoAggregate.Validations.Pedido
 {
     public class PedidoAddValidation : PedidoValidation<PedidoAddCommand>
     {

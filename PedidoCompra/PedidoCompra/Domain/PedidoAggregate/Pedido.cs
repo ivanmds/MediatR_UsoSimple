@@ -21,7 +21,11 @@ namespace PedidoCompra.Domain.PedidoAggregate
             Status = status;
             _itens = itens ?? new List<PedidoItem>();
         }
-        protected Pedido() { }
+
+        protected Pedido()
+        {
+            _itens = new List<PedidoItem>();
+        }
 
         public void AdicionarItem(PedidoItem item)
         {

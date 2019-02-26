@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
-using PedidoCompra.Domain.PedidoAggregate.Commands;
+using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido;
 using System;
 using System.Linq;
 
-namespace PedidoCompra.Domain.PedidoAggregate.Validations
+namespace PedidoCompra.Domain.PedidoAggregate.Validations.Pedido
 {
     public abstract class PedidoValidation<T> : AbstractValidator<T> where T : PedidoCommand
     {

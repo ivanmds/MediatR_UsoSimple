@@ -14,7 +14,7 @@ export class PedidoAddComponent implements OnInit {
   private pedidos: Pedido[];
   private resultado: ResultadoCommand = new ResultadoCommand();
   private form: FormGroup;
-  private itensNovos: PedidoItem[] = new Array();
+  private pedidoItens: PedidoItem[] = new Array();
   private uri: string =  this.baseUrl + 'api/pedidos';
 
   constructor(
@@ -24,10 +24,12 @@ export class PedidoAddComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      id: [null],
       criado: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
       status: [null, [Validators.required]]
     });
+
     this.listarPedidos();
   }
 
@@ -35,28 +37,53 @@ export class PedidoAddComponent implements OnInit {
     
     if (this.form.valid) {
       let pedido = this.form.value;
-      pedido.itens = this.itensNovos;
+      pedido.itens = this.pedidoItens;
 
-      let body = JSON.stringify(pedido);
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      };
-
-      this.http.post<any>(this.uri, body, httpOptions).subscribe(retorno => {
-       
-        this.carregarRetorno(retorno);
-
-        if (this.resultado.isValid === true) {
-          this.form.reset();
-          this.listarPedidos();
-          this.itensNovos = new Array();
-        }
-
-      }, error => console.error(error));
-      
+      if(pedido.id === null) {
+        this.salvarNovo(pedido);
+      } else {
+        this.salvarAtualizacao(pedido);
+      }
     }
+  }
+
+  salvarAtualizacao(pedido: Pedido) {
+    let body = JSON.stringify(pedido);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.put<any>(`${this.uri}/${pedido.id}`, body, httpOptions).subscribe(retorno => {
+     
+      this.carregarRetorno(retorno);
+      if (this.resultado.isValid === true) {
+        this.listarPedidos();
+      }
+    }, error => console.error(error));
+  }
+
+  salvarNovo(pedido: Pedido) {
+
+    let body = JSON.stringify(pedido);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+
+    this.http.post<any>(this.uri, body, httpOptions).subscribe(retorno => {
+     
+      this.carregarRetorno(retorno);
+
+      if (this.resultado.isValid === true) {
+        this.form.reset();
+        this.listarPedidos();
+        this.pedidoItens = new Array();
+      }
+
+    }, error => console.error(error));
   }
 
   listarPedidos(): void {
@@ -65,8 +92,22 @@ export class PedidoAddComponent implements OnInit {
     });
   }
 
+  editarPedido(pedidoId: string): void {
+    this.http.get<Pedido>(`${this.uri}/${pedidoId}`).subscribe(retorno => {
+      
+      this.form.setValue({
+        id: retorno.id,
+        descricao: retorno.descricao,
+        criado:  new Date(retorno.criado).toISOString().split('T')[0],
+        status: retorno.status
+      });
+      
+      this.pedidoItens = retorno.itens;
+    });
+  }
+
   novoItemDoPedido(item: any): void {
-    this.itensNovos.push(item);
+    this.pedidoItens.push(item);
   }
 
   deletarPedido(pedido: Pedido): void {
@@ -91,5 +132,4 @@ export class PedidoAddComponent implements OnInit {
       this.resultado = new ResultadoCommand();
     }, 10000);
   }
-
 }
