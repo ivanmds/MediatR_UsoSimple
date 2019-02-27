@@ -32,10 +32,10 @@
       </select>
     </div>
 
-    <app-pedido-item-listar [itens]="pedidoItens" ></app-pedido-item-listar>
+    <app-pedido-item-listar [itens]="pedidoItens" (itemDeletado)="itemDeletado($event)" ></app-pedido-item-listar>
     
     <div class="container" style="text-align: right;">
-      <app-pedido-item-add-modal (novoItem)="novoItemDoPedido($event)"></app-pedido-item-add-modal>
+      <app-pedido-item-modal (novoItem)="novoItemDoPedido($event)"></app-pedido-item-modal>
     </div>
     <br />
     <button type="submit" class="btn btn-success" [disabled]="!form.valid" (click)="onSubmit()">Salvar</button>
@@ -46,5 +46,5 @@
 <div class="container">
   <hr />
   <h3>Lista dos pedidos</h3>
-  <app-pedido-listar [pedidos]="pedidos" (deletarPedido)="deletarPedido($event)" (editarPedido)="editarPedido($event)"></app-pedido-listar>
+  <app-pedido-listar [pedidos]="pedidos" (deletarPedido)="deletarPedido($event)"></app-pedido-listar>
 </div>

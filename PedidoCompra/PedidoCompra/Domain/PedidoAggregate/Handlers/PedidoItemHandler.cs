@@ -4,11 +4,13 @@ using FluentValidation.Results;
 using MediatR;
 using PedidoCompra.Contextos;
 using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
+using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Deletar;
 using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 
 namespace PedidoCompra.Domain.PedidoAggregate.Handlers
 {
-    public class PedidoItemHandler : IRequestHandler<PedidoItemAddCommand, ValidationResult>
+    public class PedidoItemHandler : IRequestHandler<PedidoItemAddCommand, ValidationResult>,
+                                     IRequestHandler<PedidoItemDeletarCommand, ValidationResult>
     {
         private readonly IMediator _mediator;
         private readonly IUnitOfWork _unitOfWork;
@@ -29,7 +31,20 @@ namespace PedidoCompra.Domain.PedidoAggregate.Handlers
 
                 await _pedidoRepository.AdicionarItemAsync(item);
 
-                if(await _unitOfWork.SalvarAsync())
+                if(!await _unitOfWork.SalvarAsync())
+                    comando.Validacao.Errors.Add(new ValidationFailure("Salvar", "Erro ao tentar salvar operação"));
+            }
+
+            return comando.Validacao;
+        }
+
+        public async Task<ValidationResult> Handle(PedidoItemDeletarCommand comando, CancellationToken cancelar)
+        {
+            if(comando.EhValido())
+            {
+                await _pedidoRepository.RemoverItemAsync(comando.Id);
+
+                if (!await _unitOfWork.SalvarAsync())
                     comando.Validacao.Errors.Add(new ValidationFailure("Salvar", "Erro ao tentar salvar operação"));
             }
 

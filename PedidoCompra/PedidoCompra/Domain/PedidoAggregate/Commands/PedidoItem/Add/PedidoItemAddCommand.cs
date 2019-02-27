@@ -5,9 +5,9 @@ namespace PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add
 {
     public class PedidoItemAddCommand : PedidoItemCommand
     {
-        public PedidoItemAddCommand(Guid id, string descricao, float quantidade, decimal valorUnitario)
+        public PedidoItemAddCommand(string descricao, float quantidade, decimal valorUnitario)
         {
-            Id = id;
+            Id = Guid.NewGuid();
             Descricao = descricao;
             Quantidade = quantidade;
             ValorUnitario = valorUnitario;

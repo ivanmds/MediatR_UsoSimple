@@ -9,5 +9,6 @@ namespace PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios
         Task<Pedido> RemoverAsync(Guid id);
         Pedido Atualizar(Pedido pedido);
         Task<PedidoItem> AdicionarItemAsync(PedidoItem pedidoItem);
+        Task<PedidoItem> RemoverItemAsync(Guid pedidoItemId);
     }
 }

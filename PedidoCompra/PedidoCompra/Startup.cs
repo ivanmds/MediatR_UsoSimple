@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PedidoCompra.Contextos;
-using PedidoCompra.Domain.PedidoAggregate.Commands;
 using PedidoCompra.Domain.PedidoAggregate.Handlers;
 using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 using PedidoCompra.Repositorios;
@@ -17,6 +16,7 @@ using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
 using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
 using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
 using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
+using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Deletar;
 
 namespace PedidoCompra
 {
@@ -41,12 +41,13 @@ namespace PedidoCompra
             });
 
             services.AddMediatR(typeof(IMediator).GetTypeInfo().Assembly);
-            
+
             services.AddScoped(typeof(Contexto));
             services.AddScoped<IRequestHandler<PedidoAddCommand, ValidationResult>, PedidoHandler>();
             services.AddScoped<IRequestHandler<PedidoDeletarCommand, ValidationResult>, PedidoHandler>();
             services.AddScoped<IRequestHandler<PedidoAtualizarCommand, ValidationResult>, PedidoHandler>();
             services.AddScoped<IRequestHandler<PedidoItemAddCommand, ValidationResult>, PedidoItemHandler>();
+            services.AddScoped<IRequestHandler<PedidoItemDeletarCommand, ValidationResult>, PedidoItemHandler>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, AvisarFinanceiroNotificarion>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, EnviarEmailNotificarion>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();

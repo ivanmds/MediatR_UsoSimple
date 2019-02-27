@@ -11,6 +11,7 @@ using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
 using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
 using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
 using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
+using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Deletar;
 
 namespace PedidoCompra.Controllers
 {
@@ -63,6 +64,13 @@ namespace PedidoCompra.Controllers
         {
             pedidoItemAddCommand.SetPedidoId(id);
             return await _mediator.Send(pedidoItemAddCommand);
+        }
+
+        [HttpDelete("{id:guid}/itens/{pedidoItemId:guid}")]
+        public async Task<ValidationResult> DeletarItem(Guid id, Guid pedidoItemId)
+        {
+            PedidoItemDeletarCommand pedidoItemDeletarCommand = new PedidoItemDeletarCommand(pedidoItemId, id);
+            return await _mediator.Send(pedidoItemDeletarCommand);
         }
     }
 }

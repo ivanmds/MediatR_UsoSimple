@@ -26,7 +26,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations.PedidoItem
             RuleFor(p => p.ValorUnitario)
                 .Must((valor) =>
                 {
-                    return valor <= 0;
+                    return valor > 0;
                 }).WithMessage("Valor unitário do item deve ser maior que 0.");
         }
 
@@ -35,7 +35,7 @@ namespace PedidoCompra.Domain.PedidoAggregate.Validations.PedidoItem
             RuleFor(p => p.Quantidade)
                 .Must((quantidade) =>
                 {
-                    return quantidade <= 0;
+                    return quantidade > 0;
                 }).WithMessage("Quantidade do item deve ser maior que 0.");
         }
 

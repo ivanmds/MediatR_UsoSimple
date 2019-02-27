@@ -7,6 +7,7 @@ namespace PedidoCompra.Contextos
     public class Contexto : DbContext
     {
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<PedidoItem> PedidoItens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

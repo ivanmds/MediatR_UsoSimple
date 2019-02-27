@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { Pedido } from '../../pedido.model';
 import { Router } from '@angular/router';
+import { Pedido } from '../models/pedido.model';
 
 @Component({
   selector: 'app-pedido-listar',
@@ -10,7 +10,6 @@ export class PedidoListarComponent implements OnInit {
 
   @Input() pedidos: Pedido[];
   @Output() deletarPedido = new EventEmitter<Pedido>();
-  @Output() editarPedido = new EventEmitter<string>();
 
   constructor(private router: Router) { }
 
@@ -22,7 +21,6 @@ export class PedidoListarComponent implements OnInit {
   }
 
   private editar(id: string) : void {
-    this.editarPedido.emit(id);
     this.router.navigate(['pedidos', id]);
   }
 }

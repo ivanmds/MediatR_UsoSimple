@@ -1,5 +1,5 @@
 export class ResultadoCommand {
 
     public isValid?: boolean;
-    public errors: string[];
+    public errors: string[] = new Array();
 }
