@@ -39,7 +39,7 @@ namespace PedidoCompra.Controllers
         }
 
         [HttpPost("")]
-        public async Task<ValidationResult> Novo([FromBody]PedidoAddCommand pedidoAddCommand)
+        public async Task<ValidationResult> Novo([FromBody] PedidoAddCommand pedidoAddCommand)
         {
             return await _mediator.Send(pedidoAddCommand);
         }

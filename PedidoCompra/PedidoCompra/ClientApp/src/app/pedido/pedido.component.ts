@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Pedido } from './models/pedido.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResultadoCommand } from '../shared/resultado.model';
 import { PedidoItem } from './models/pedido-item.model';
 import { ActivatedRoute } from '@angular/router';
@@ -17,21 +16,12 @@ export class PedidoComponent implements OnInit {
   private resultado: ResultadoCommand = new ResultadoCommand();
   private form: FormGroup;
   private pedidoItens: PedidoItem[] = new Array();
-  private uri: string = this.baseUrl + 'api/pedidos';
   private pedidoIdEditando: string = "";
-
-  private httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
 
   constructor(
     private formBuilder: FormBuilder,
-    private http: HttpClient,
     private route: ActivatedRoute,
-    private pedidoService: PedidoService,
-    @Inject('BASE_URL') private baseUrl: string) { }
+    private pedidoService: PedidoService) { }
 
   ngOnInit() {
     this.form = this.formBuilder.group({
@@ -66,7 +56,7 @@ export class PedidoComponent implements OnInit {
 
   salvarAtualizacao(pedido: Pedido) {
     this.pedidoService.atualizar(pedido).subscribe(r => {
-      this.resultado = this.pedidoService.obterResultadoCommand(r);
+      this.mostrarResultado(this.pedidoService.obterResultadoCommand(r));
 
       if (this.resultado.isValid === true) {
         this.listarPedidos();
@@ -75,9 +65,9 @@ export class PedidoComponent implements OnInit {
   }
 
   salvarNovo(pedido: Pedido) {
-
+    delete pedido.id;
     this.pedidoService.novo(pedido).subscribe(r => {
-      this.resultado = this.pedidoService.obterResultadoCommand(r);
+      this.mostrarResultado(this.pedidoService.obterResultadoCommand(r));
       if (this.resultado.isValid === true) {
         this.form.reset();
         this.listarPedidos();
@@ -112,7 +102,7 @@ export class PedidoComponent implements OnInit {
       this.pedidoItens.push(item);
     } else {
       this.pedidoService.novoItem(this.pedidoIdEditando, item).subscribe(r => {
-        this.resultado = this.pedidoService.obterResultadoCommand(r);
+        this.mostrarResultado(this.pedidoService.obterResultadoCommand(r));
         if (this.resultado.isValid === true) {
           this.pedidoItens.push(item);
         }
@@ -121,7 +111,7 @@ export class PedidoComponent implements OnInit {
   }
 
   itemDeletado(resultado: ResultadoCommand) {
-    this.resultado = resultado;
+    this.mostrarResultado(resultado);
   }
 
   deletarPedido(pedido: Pedido): void {
@@ -133,14 +123,8 @@ export class PedidoComponent implements OnInit {
     });
   }
 
-  private carregarRetorno(result: any): void {
-    let errors = [];
-    result.errors.forEach(erro => {
-      errors.push(erro.errorMessage);
-    });
-
-    this.resultado.isValid = result.isValid;
-    this.resultado.errors = errors;
+  private mostrarResultado(resultado: ResultadoCommand): void {
+    this.resultado = resultado;
     setTimeout(() => {
       this.resultado = new ResultadoCommand();
     }, 10000);

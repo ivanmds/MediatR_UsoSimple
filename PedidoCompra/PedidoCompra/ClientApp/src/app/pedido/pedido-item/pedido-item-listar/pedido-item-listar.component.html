@@ -14,7 +14,9 @@
       <td>{{item.quantidade}}</td>
       <td>{{item.valorUnitario}}</td>
       <td>{{ item.quantidade * item.valorUnitario }}</td>
-      <td><a href="javascript:void(0)" (click)="deletar(i)"> X </a></td>
+      <td>
+        <a href="javascript:void(0)" (click)="deletar(i)"> <i class="fa fa-close" style="font-size:22px;"></i> </a>
+      </td>
     </tr>
   </tbody>
 </table>
