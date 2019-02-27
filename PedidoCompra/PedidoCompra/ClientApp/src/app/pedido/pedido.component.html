@@ -1,5 +1,9 @@
 <div class="container">
-  <h1>Cadatro do pedido</h1>
+  <h1>
+    <a href="javascript:void(0)" [routerLink]="['/pedidos']" title="Novo pedido">
+      <i class="fa fa-file"></i>
+    </a> Cadatro do pedido
+  </h1>
   <div class="alert alert-danger" *ngIf="resultado.isValid == false">
     <ul *ngFor="let error of resultado.errors">
       <li style="font-weight: bold;">{{error}}</li>

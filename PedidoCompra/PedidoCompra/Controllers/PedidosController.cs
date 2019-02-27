@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using PedidoCompra.Domain.PedidoAggregate;
-using PedidoCompra.Domain.PedidoAggregate.Commands;
 using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -60,7 +59,7 @@ namespace PedidoCompra.Controllers
         }
 
         [HttpPost("{id:guid}/itens")]
-        public async Task<ValidationResult> AtualizarItem(Guid id, [FromBody] PedidoItemAddCommand pedidoItemAddCommand)
+        public async Task<ValidationResult> NovoItem(Guid id, [FromBody] PedidoItemAddCommand pedidoItemAddCommand)
         {
             pedidoItemAddCommand.SetPedidoId(id);
             return await _mediator.Send(pedidoItemAddCommand);

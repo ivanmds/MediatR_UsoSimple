@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ResultadoCommand } from '../shared/resultado.model';
 import { PedidoItem } from './models/pedido-item.model';
 import { ActivatedRoute } from '@angular/router';
+import { PedidoService } from '../services/pedido-service';
 
 @Component({
   selector: 'app-pedido',
@@ -29,6 +30,7 @@ export class PedidoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private route: ActivatedRoute,
+    private pedidoService: PedidoService,
     @Inject('BASE_URL') private baseUrl: string) { }
 
   ngOnInit() {
@@ -50,7 +52,6 @@ export class PedidoComponent implements OnInit {
   }
 
   onSubmit(): void {
-
     if (this.form.valid) {
       let pedido = this.form.value;
       pedido.itens = this.pedidoItens;
@@ -64,40 +65,35 @@ export class PedidoComponent implements OnInit {
   }
 
   salvarAtualizacao(pedido: Pedido) {
-    let body = JSON.stringify(pedido);
-    this.http.put<any>(`${this.uri}/${pedido.id}`, body, this.httpOptions).subscribe(retorno => {
+    this.pedidoService.atualizar(pedido).subscribe(r => {
+      this.resultado = this.pedidoService.obterResultadoCommand(r);
 
-      this.carregarRetorno(retorno);
       if (this.resultado.isValid === true) {
         this.listarPedidos();
       }
-    }, error => console.error(error));
+    });
   }
 
   salvarNovo(pedido: Pedido) {
 
-    let body = JSON.stringify(pedido);
-    this.http.post<any>(this.uri, body, this.httpOptions).subscribe(retorno => {
-
-      this.carregarRetorno(retorno);
-
+    this.pedidoService.novo(pedido).subscribe(r => {
+      this.resultado = this.pedidoService.obterResultadoCommand(r);
       if (this.resultado.isValid === true) {
         this.form.reset();
         this.listarPedidos();
         this.pedidoItens = new Array();
       }
-
-    }, error => console.error(error));
+    });
   }
 
   listarPedidos(): void {
-    this.http.get<Pedido[]>(this.uri).subscribe(retorno => {
+    this.pedidoService.listar().subscribe(retorno => {
       this.pedidos = retorno;
     });
   }
 
   editarPedido(pedidoId: string): void {
-    this.http.get<Pedido>(`${this.uri}/${pedidoId}`).subscribe(retorno => {
+    this.pedidoService.obter(pedidoId).subscribe(retorno => {
 
       this.form.setValue({
         id: retorno.id,
@@ -115,17 +111,12 @@ export class PedidoComponent implements OnInit {
     if (this.pedidoIdEditando == null) {
       this.pedidoItens.push(item);
     } else {
-      let uri = `${this.uri}/${this.pedidoIdEditando}/itens`;
-
-      let body = JSON.stringify(item);
-      this.http.post<any>(uri, body, this.httpOptions).subscribe(retorno => {
-
-        this.carregarRetorno(retorno);
+      this.pedidoService.novoItem(this.pedidoIdEditando, item).subscribe(r => {
+        this.resultado = this.pedidoService.obterResultadoCommand(r);
         if (this.resultado.isValid === true) {
           this.pedidoItens.push(item);
         }
-
-      }, error => console.error(error));
+      });
     }
   }
 
@@ -134,9 +125,8 @@ export class PedidoComponent implements OnInit {
   }
 
   deletarPedido(pedido: Pedido): void {
-    let uri = `${this.uri}/${pedido.id}`;
-    this.http.delete(uri).subscribe(retorno => {
-      this.carregarRetorno(retorno);
+    this.pedidoService.deletar(pedido).subscribe(r => {
+      this.resultado = this.pedidoService.obterResultadoCommand(r);
       if (this.resultado.isValid === true) {
         this.listarPedidos();
       }
