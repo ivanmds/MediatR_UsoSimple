@@ -3,3 +3,5 @@
 ################################################################################
 
 /PedidoCompra/.vs
+/PedidoCompra/PagamentoApi/bin/Debug/netcoreapp2.1
+/PedidoCompra/PagamentoApi/obj
