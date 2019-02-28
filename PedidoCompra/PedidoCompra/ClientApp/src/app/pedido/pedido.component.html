@@ -1,9 +1,10 @@
 <div class="container">
   <h1>
-    <a href="javascript:void(0)" [routerLink]="['/pedidos']" title="Novo pedido">
-      <i class="fa fa-file"></i>
+    <a href="javascript:void(0)" [routerLink]="['/pedidos/listar']" title="Novo pedido">
+      <span class='glyphicon glyphicon-th-list'></span> 
     </a> Cadatro do pedido
   </h1>
+  <hr />
   <div class="alert alert-danger" *ngIf="resultado.isValid == false">
     <ul *ngFor="let error of resultado.errors">
       <li style="font-weight: bold;">{{error}}</li>
@@ -47,8 +48,3 @@
 </div>
 
 <br />
-<div class="container">
-  <hr />
-  <h3>Lista dos pedidos</h3>
-  <app-pedido-listar [pedidos]="pedidos" (deletarPedido)="deletarPedido($event)"></app-pedido-listar>
-</div>

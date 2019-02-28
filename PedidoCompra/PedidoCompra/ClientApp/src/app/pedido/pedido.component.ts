@@ -114,14 +114,7 @@ export class PedidoComponent implements OnInit {
     this.mostrarResultado(resultado);
   }
 
-  deletarPedido(pedido: Pedido): void {
-    this.pedidoService.deletar(pedido).subscribe(r => {
-      this.resultado = this.pedidoService.obterResultadoCommand(r);
-      if (this.resultado.isValid === true) {
-        this.listarPedidos();
-      }
-    });
-  }
+ 
 
   private mostrarResultado(resultado: ResultadoCommand): void {
     this.resultado = resultado;

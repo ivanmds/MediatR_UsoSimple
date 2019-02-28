@@ -36,8 +36,9 @@ import { PedidoService } from './services/pedido-service';
     ModalModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'pedidos', component: PedidoComponent },
-      { path: 'pedidos/:id', component: PedidoComponent }
+      { path: 'pedidos/listar', component: PedidoListarComponent },
+      { path: 'pedidos/novo', component: PedidoComponent },
+      { path: 'pedidos/editar/:id', component: PedidoComponent }
     ])
   ],
   providers: [
