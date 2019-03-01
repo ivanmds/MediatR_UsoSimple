@@ -6,13 +6,14 @@ namespace PedidoCompra.Domain.Pedidos.Commands.Pedido.Add
 {
     public class PedidoAddCommand : PedidoCommand
     {
-        public PedidoAddCommand(DateTime criado, string descricao, PedidoStatus status, List<PedidoItemDto> itens)
+        public PedidoAddCommand(DateTime criado, string descricao, PedidoStatus status, List<PedidoItemDto> itens, CartaoDto cartao)
         {
             Id = Guid.NewGuid();
             Criado = criado;
             Descricao = descricao;
             Status = status;
-            Itens = itens;
+            Cartao = cartao ?? new CartaoDto();
+            Itens = itens ?? new List<PedidoItemDto>();
         }
 
         public override bool EhValido()

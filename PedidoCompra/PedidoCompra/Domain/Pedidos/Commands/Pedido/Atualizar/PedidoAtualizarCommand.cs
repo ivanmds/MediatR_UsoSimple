@@ -1,5 +1,4 @@
 ﻿using System;
-using PedidoCompra.Domain.Pedidos.Validations;
 using PedidoCompra.Domain.Pedidos.Validations.Pedido;
 
 namespace PedidoCompra.Domain.Pedidos.Commands.Pedido.Atualizar

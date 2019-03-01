@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PedidoCompra.Domain
+namespace PedidoCompra.Domain.Pedidos
 {
     public class Cartao
     {
@@ -15,7 +15,7 @@ namespace PedidoCompra.Domain
 
         public Guid Id { get; private set; }
         public string Nome { get; private set; }
-
+        
         private string _numero;
         public string Numero
         {

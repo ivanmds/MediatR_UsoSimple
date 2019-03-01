@@ -11,6 +11,7 @@ namespace PedidoCompra.Domain.Pedidos.Validations.Pedido
             ValidarStatus();
             ValidarDescricao();
             ValidarItens();
+            ValidarCartao();
         }
     }
 }

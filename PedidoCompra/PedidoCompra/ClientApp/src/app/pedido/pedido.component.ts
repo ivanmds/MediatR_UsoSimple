@@ -28,12 +28,18 @@ export class PedidoComponent implements OnInit {
       id: [null],
       criado: [null, [Validators.required]],
       descricao: [null, [Validators.required]],
-      status: [null, [Validators.required]]
+      status: [null, [Validators.required]],
+      cartao: this.formBuilder.group({
+        nome: [null, [Validators.required]],
+        numero: [null, [Validators.required]],
+        vencimento: [null, [Validators.required]],
+        codigo: [null, [Validators.required]]
+      })
     });
 
     this.route.params.subscribe(p => {
       this.pedidoIdEditando = p['id'];
-      if (this.pedidoIdEditando != null) {
+      if (this.pedidoIdEditando != null && this.pedidoIdEditando != undefined) {
         this.editarPedido(this.pedidoIdEditando);
       }
     });
@@ -46,7 +52,7 @@ export class PedidoComponent implements OnInit {
       let pedido = this.form.value;
       pedido.itens = this.pedidoItens;
 
-      if (pedido.id === null) {
+      if (pedido.id === null || pedido.id == undefined) {
         this.salvarNovo(pedido);
       } else {
         this.salvarAtualizacao(pedido);
@@ -89,7 +95,13 @@ export class PedidoComponent implements OnInit {
         id: retorno.id,
         descricao: retorno.descricao,
         criado: new Date(retorno.criado).toISOString().split('T')[0],
-        status: retorno.status
+        status: retorno.status,
+        cartao: {
+          nome: retorno.cartao.nome,
+          numero: retorno.cartao.numero,
+          vencimento: retorno.cartao.vencimento,
+          codigo: retorno.cartao.codigo
+        }
       });
 
       this.pedidoItens = retorno.itens;
@@ -113,8 +125,6 @@ export class PedidoComponent implements OnInit {
   itemDeletado(resultado: ResultadoCommand) {
     this.mostrarResultado(resultado);
   }
-
- 
 
   private mostrarResultado(resultado: ResultadoCommand): void {
     this.resultado = resultado;

@@ -11,6 +11,8 @@ namespace PedidoCompra.Contextos.Maps
             builder.ToTable("Pedido");
             builder.HasKey(p => p.Id);
             builder.HasMany(p => p.Itens);
+            builder.HasOne(p => p.Cartao);
+            builder.Ignore(p => p.Valor);
         }
     }
 }

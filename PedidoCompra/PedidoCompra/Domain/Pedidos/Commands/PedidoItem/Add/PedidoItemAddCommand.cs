@@ -5,7 +5,7 @@ namespace PedidoCompra.Domain.Pedidos.Commands.PedidoItem.Add
 {
     public class PedidoItemAddCommand : PedidoItemCommand
     {
-        public PedidoItemAddCommand(string descricao, float quantidade, decimal valorUnitario)
+        public PedidoItemAddCommand(string descricao, decimal quantidade, decimal valorUnitario)
         {
             Id = Guid.NewGuid();
             Descricao = descricao;

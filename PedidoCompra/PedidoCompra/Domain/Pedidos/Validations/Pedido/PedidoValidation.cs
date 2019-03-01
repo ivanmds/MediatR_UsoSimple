@@ -50,6 +50,18 @@ namespace PedidoCompra.Domain.Pedidos.Validations.Pedido
             ValidarQuantidadeDosItens();
         }
 
+        protected void ValidarCartao()
+        {
+            RuleFor(p => p.Cartao)
+                .NotNull()
+                .WithMessage("Informe um cartão");
+
+            ValidarIdCartao();
+            ValidarNumeroCartao();
+            ValidarCodigoCartao();
+            ValidarVencimentoCartao();
+        }
+
         private void ValidarIdDosItens()
         {
             RuleForEach(p => p.Itens)
@@ -96,6 +108,40 @@ namespace PedidoCompra.Domain.Pedidos.Validations.Pedido
                         contexto.AddFailure("Quantidade do item deve ser maior que 0.");
                     }
                 });
+        }
+
+        private void ValidarIdCartao()
+        {
+            RuleFor(p => p.Cartao.Id)
+                .NotEqual(Guid.Empty)
+                .WithMessage("Id do cartão é inválido");
+        }
+
+        private void ValidarNumeroCartao()
+        {
+            RuleFor(p => p.Cartao.Numero)
+                .NotNull()
+                .WithMessage("Informe o número do cartão")
+                .Length(16)
+                .WithMessage("Informe um número válido de cartão");
+
+        }
+
+        private void ValidarCodigoCartao()
+        {
+            RuleFor(p => p.Cartao.Codigo)
+               .Must(c => {
+                   return c >= 1 && c < 10000;
+               }).WithMessage("Informe um código válido de cartão");
+        }
+
+        private void ValidarVencimentoCartao()
+        {
+            RuleFor(p => p.Cartao.Vencimento)
+             .NotNull()
+             .WithMessage("Informe o vencimento do cartão")
+             .Length(7)
+             .WithMessage("Informe um vencimento válido de cartão");
         }
     }
 }

@@ -32,10 +32,10 @@ namespace PedidoCompra.Domain.Pedidos.Handlers
             {
                 Pedido pedido = new Pedido(comando.Id, comando.Criado, comando.Descricao, comando.Status);
 
-                if (comando.Itens?.Count > 0)
-                    foreach (PedidoItemDto item in comando.Itens)
-                        pedido.AdicionarItem(new PedidoItem(item.Id, item.Descricao, item.Quantidade, item.ValorUnitario, pedido.Id));
+                foreach (PedidoItemDto item in comando.Itens)
+                    pedido.AdicionarItem(new PedidoItem(item.Id, item.Descricao, item.Quantidade, item.ValorUnitario, pedido.Id));
 
+                pedido.AdicionarCartao(new Cartao(comando.Cartao.Id, comando.Cartao.Nome, comando.Cartao.Numero, comando.Cartao.Vencimento, comando.Cartao.Codigo));
 
                 await _pedidoRepository.AdicionarAsync(pedido);
 
@@ -77,7 +77,7 @@ namespace PedidoCompra.Domain.Pedidos.Handlers
 
         public async Task<ValidationResult> Handle(PedidoAtualizarCommand comando, CancellationToken cancelar)
         {
-            if(comando.EhValido())
+            if (comando.EhValido())
             {
                 Pedido pedido = new Pedido(comando.Id, comando.Criado, comando.Descricao, comando.Status);
 

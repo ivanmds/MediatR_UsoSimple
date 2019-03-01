@@ -26,19 +26,24 @@ namespace PedidoCompra.Repositorios
         public async Task<Pedido> ObterAsync(Guid id)
         {
             StringBuilder query = new StringBuilder();
-            query.Append("SELECT p.Id, p.Criado, p.Descricao, p.Status FROM Pedido p WHERE p.Id = @PedidoId ");
+            query.Append("SELECT p.Id, p.Criado, p.Descricao, p.Status, c.Id, c.Nome, c.Numero, c.Vencimento, c.Codigo FROM Pedido p INNER JOIN Cartao c ON p.CartaoId = c.Id WHERE p.Id = @PedidoId ");
             query.Append("SELECT i.Id, i.Descricao, i.Quantidade, i.ValorUnitario, i.PedidoId FROM PedidoItem i  WHERE i.PedidoId = @PedidoId ");
 
             using (var multi = await _db.QueryMultipleAsync(query.ToString(), new { PedidoId = id }))
             {
-                Pedido pedido = await multi.ReadFirstOrDefaultAsync<Pedido>();
+                Pedido pedido = (multi.Read<Pedido, Cartao, Pedido>((p, c) =>
+                {
+                    p.AdicionarCartao(c);
+
+                    return p;
+
+                })).FirstOrDefault();
+
                 IEnumerable<PedidoItem> itens = await multi.ReadAsync<PedidoItem>();
 
                 if (pedido == null) return null;
 
-                if (itens?.Count() > 0)
-                    foreach (PedidoItem item in itens)
-                        pedido.AdicionarItem(item);
+                pedido.AdicionarItem(itens);
 
                 return pedido;
             }
