@@ -50,6 +50,7 @@ namespace PedidoCompra
             services.AddScoped<IRequestHandler<PedidoItemDeletarCommand, ValidationResult>, PedidoItemHandler>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, AvisarFinanceiroNotificarion>();
             services.AddScoped<INotificationHandler<PedidoAddNotification>, EnviarEmailNotificarion>();
+            services.AddScoped<INotificationHandler<PedidoAddNotification>, ProcessarPagamentoCartaoNotification>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IPedidoQueryRepository, PedidoQueryRepository>();
 

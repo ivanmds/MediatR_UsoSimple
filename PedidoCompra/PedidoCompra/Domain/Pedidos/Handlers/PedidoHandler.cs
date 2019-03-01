@@ -42,7 +42,7 @@ namespace PedidoCompra.Domain.Pedidos.Handlers
                 if (!await _unitOfWork.SalvarAsync())
                     comando.Validacao.Errors.Add(new ValidationFailure("Salvar", "Erro ao tentar salvar operação"));
 
-                await _mediator.Publish(new PedidoAddNotification() { Id = pedido.Id, Criado = pedido.Criado, Descricao = pedido.Descricao });
+                await _mediator.Publish(new PedidoAddNotification() { Id = pedido.Id, Criado = pedido.Criado, Descricao = pedido.Descricao, Cartao = pedido.Cartao });
             }
 
             return comando.Validacao;
