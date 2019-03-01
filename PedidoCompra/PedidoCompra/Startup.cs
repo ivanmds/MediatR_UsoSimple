@@ -6,17 +6,17 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PedidoCompra.Contextos;
-using PedidoCompra.Domain.PedidoAggregate.Handlers;
-using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using PedidoCompra.Domain.Pedidos.Handlers;
+using PedidoCompra.Domain.Pedidos.Interfaces.Repositorios;
 using PedidoCompra.Repositorios;
 using System.Reflection;
 using FluentValidation.Results;
-using PedidoCompra.Domain.PedidoAggregate.Notifications;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
-using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
-using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Deletar;
+using PedidoCompra.Domain.Pedidos.Notifications;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Atualizar;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Deletar;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Add;
+using PedidoCompra.Domain.Pedidos.Commands.PedidoItem.Add;
+using PedidoCompra.Domain.Pedidos.Commands.PedidoItem.Deletar;
 
 namespace PedidoCompra
 {

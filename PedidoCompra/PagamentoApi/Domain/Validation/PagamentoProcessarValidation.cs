@@ -27,6 +27,12 @@ namespace PagamentoApi.Domain.Validation
                 .EmailAddress()
                 .WithMessage("Email é inválido");
 
+            RuleFor(p => p.Valor)
+                .Must(v =>
+                {
+                    return v > 0;
+                }).WithMessage("Pedido deve conter um valor");
+
             RuleFor(p => p.NomeNoCartao)
                 .NotEmpty()
                 .WithMessage("Nome deve ser informado");

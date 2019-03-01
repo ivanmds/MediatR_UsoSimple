@@ -1,6 +1,6 @@
-﻿using PedidoCompra.Domain.PedidoAggregate;
+﻿using PedidoCompra.Domain.Pedidos;
 using PedidoCompra.Contextos;
-using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using PedidoCompra.Domain.Pedidos.Interfaces.Repositorios;
 using System.Threading.Tasks;
 using System;
 using Microsoft.EntityFrameworkCore;

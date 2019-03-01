@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PedidoCompra.Domain.PedidoAggregate;
-using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using PedidoCompra.Domain.Pedidos;
+using PedidoCompra.Domain.Pedidos.Interfaces.Repositorios;
 using System.Data.SqlClient;
 using Dapper;
 using System.Text;

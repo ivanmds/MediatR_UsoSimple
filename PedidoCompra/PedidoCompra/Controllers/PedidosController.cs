@@ -1,16 +1,16 @@
 ﻿using MediatR;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
-using PedidoCompra.Domain.PedidoAggregate;
-using PedidoCompra.Domain.PedidoAggregate.Interfaces.Repositorios;
+using PedidoCompra.Domain.Pedidos;
+using PedidoCompra.Domain.Pedidos.Interfaces.Repositorios;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Add;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Atualizar;
-using PedidoCompra.Domain.PedidoAggregate.Commands.Pedido.Deletar;
-using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Add;
-using PedidoCompra.Domain.PedidoAggregate.Commands.PedidoItem.Deletar;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Add;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Atualizar;
+using PedidoCompra.Domain.Pedidos.Commands.Pedido.Deletar;
+using PedidoCompra.Domain.Pedidos.Commands.PedidoItem.Add;
+using PedidoCompra.Domain.Pedidos.Commands.PedidoItem.Deletar;
 
 namespace PedidoCompra.Controllers
 {

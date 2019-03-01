@@ -5,11 +5,12 @@ namespace PagamentoApi.Domain.Command
 {
     public class PagamentoProcessarCommand : Command
     {
-        public PagamentoProcessarCommand(Guid pedidoId, string email, string nomeNoCartao, string numeroDoCartao, string vencimentoDoCartao, int codigoDoCartao)
+        public PagamentoProcessarCommand(Guid pedidoId, string email, decimal valor, string nomeNoCartao, string numeroDoCartao, string vencimentoDoCartao, int codigoDoCartao)
         {
             Id = Guid.NewGuid();
             PedidoId = pedidoId;
             Email = email;
+            Valor = valor;
             NomeNoCartao = nomeNoCartao;
             NumeroDoCartao = numeroDoCartao;
             VencimentoDoCartao = vencimentoDoCartao;
@@ -20,6 +21,7 @@ namespace PagamentoApi.Domain.Command
         public Guid Id { get; private set; }
         public Guid PedidoId { get; private set; }
         public string Email { get; private set; }
+        public decimal Valor { get; private set; }
         public string NomeNoCartao { get; private set; }
         public PagamentoStatus Status { get; private set; }
         private string _numeroDoCartao;

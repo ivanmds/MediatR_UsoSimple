@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PedidoCompra.Domain.PedidoAggregate;
+using PedidoCompra.Domain.Pedidos;
 using PedidoCompra.Contextos.Maps;
 
 namespace PedidoCompra.Contextos
