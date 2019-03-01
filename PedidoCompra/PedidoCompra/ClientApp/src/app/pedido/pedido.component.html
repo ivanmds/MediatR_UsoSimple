@@ -31,9 +31,7 @@
       <label>Status</label>
       <select class="form-control" formControlName="status">
         <option value="0">Definir</option>
-        <option value="1">Analisando</option>
-        <option value="2">Reprovado</option>
-        <option value="3">Aprovado</option>
+        <option value="1">Analisar</option>
       </select>
     </div>
     <app-pedido-item-listar [itens]="pedidoItens" (itemDeletado)="itemDeletado($event)"></app-pedido-item-listar>
